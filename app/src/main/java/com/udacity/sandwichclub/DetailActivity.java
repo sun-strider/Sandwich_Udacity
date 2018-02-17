@@ -14,6 +14,7 @@ import com.udacity.sandwichclub.utils.JsonUtils;
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
+    private static final String LOG_TAG = DetailActivity.class.getName();
     private static final int DEFAULT_POSITION = -1;
 
     @Override
@@ -66,6 +67,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI() {
+
 
     }
 }

@@ -42,29 +42,30 @@ public class JsonUtils {
                 JSONObject name = baseJsonResponse.getJSONObject("name");
 
                 //get the main name
-                if (name.has("mMainName")) {
-                    mMainName = name.getString("mMainName");
+                if (name.has("mainName")) {
+                    mMainName = name.getString("mainName");
+                    Log.i(LOG_TAG, mMainName);
                 }
 
                 // get also known names JSON array
-                if (name.has("mAlsoKnownAs")) {
-                    JSONArray alsoKnownAsJsonArray = name.getJSONArray("mAlsoKnownAs");
+                if (name.has("alsoKnownAs")) {
+                    JSONArray alsoKnownAsJsonArray = name.getJSONArray("alsoKnownAs");
 
                     // loop through the array to add to other names list
-                    mAlsoKnownAs = new ArrayList<String>();
+                    mAlsoKnownAs = new ArrayList<>();
                     for (int i = 0; i < alsoKnownAsJsonArray.length(); i++) {
                         mAlsoKnownAs.add(alsoKnownAsJsonArray.getString(i));
                     }
                 }
 
                 // Get place of origin
-                if (baseJsonResponse.has("mPlaceOfOrigin")) {
-                    mPlaceOfOrigin = baseJsonResponse.getString("mPlaceOfOrigin");
+                if (baseJsonResponse.has("placeOfOrigin")) {
+                    mPlaceOfOrigin = baseJsonResponse.getString("placeOfOrigin");
                 }
 
                 // Get mDescription
-                if (baseJsonResponse.has("mDescription")) {
-                    mDescription = baseJsonResponse.getString("mDescription");
+                if (baseJsonResponse.has("description")) {
+                    mDescription = baseJsonResponse.getString("description");
                 }
 
                 // Get mImage url
@@ -73,11 +74,11 @@ public class JsonUtils {
                 }
 
                 // get mIngredients JSON array
-                if (name.has("mIngredients")) {
-                    JSONArray ingredientsJsonArray = name.getJSONArray("mIngredients");
+                if (name.has("ingredients")) {
+                    JSONArray ingredientsJsonArray = name.getJSONArray("ingredients");
 
                     // loop through the array to add to other names list
-                    mIngredients = new ArrayList<String>();
+                    mIngredients = new ArrayList<>();
                     for (int i = 0; i < ingredientsJsonArray.length(); i++) {
                         mIngredients.add(ingredientsJsonArray.getString(i));
                     }
@@ -94,8 +95,6 @@ public class JsonUtils {
         }
 
         // Initialize a Sandwich Object
-        Sandwich currentSandwich = new Sandwich(mMainName, mAlsoKnownAs, mPlaceOfOrigin, mDescription, mImage, mIngredients);
-
-        return currentSandwich;
+        return new Sandwich(mMainName, mAlsoKnownAs, mPlaceOfOrigin, mDescription, mImage, mIngredients);
     }
 }
