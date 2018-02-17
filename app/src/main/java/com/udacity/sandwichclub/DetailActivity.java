@@ -5,24 +5,31 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.model.Sandwich;
 import com.udacity.sandwichclub.utils.JsonUtils;
 
+import java.util.List;
+
 public class DetailActivity extends AppCompatActivity {
+
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final String LOG_TAG = DetailActivity.class.getName();
     private static final int DEFAULT_POSITION = -1;
+
+    private List<String> mAlsoKnownAs;
+    private List<String> mIngredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        ImageView ingredientsIv = findViewById(R.id.image_iv);
+        ImageView sandwichImage_iv = findViewById(R.id.image_iv);
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -49,12 +56,12 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
 
         if (sandwich.getImage() != null) {
             Picasso.with(this)
                     .load(sandwich.getImage())
-                    .into(ingredientsIv);
+                    .into(sandwichImage_iv);
 
         }
 
@@ -66,8 +73,29 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
+    private void populateUI(Sandwich sandwich) {
 
+        TextView alsoKnownAs_tv = findViewById(R.id.also_known_tv);
+        TextView ingredients_tv = findViewById(R.id.ingredients_tv);
+        TextView placeOfOrigin_tv = findViewById(R.id.origin_tv);
+        TextView description_tv = findViewById(R.id.description_tv);
 
+        mAlsoKnownAs = sandwich.getAlsoKnownAs();
+
+        for (int i = 0; i < mAlsoKnownAs.size(); i++) {
+            alsoKnownAs_tv.append(mAlsoKnownAs.get(i));
+            alsoKnownAs_tv.append("\n");
+        }
+
+        mIngredients = sandwich.getIngredients();
+
+        for (int i = 0; i < mIngredients.size(); i++) {
+            ingredients_tv.append(mIngredients.get(i));
+            ingredients_tv.append("\n");
+        }
+
+        placeOfOrigin_tv.setText(sandwich.getPlaceOfOrigin());
+
+        description_tv.setText(sandwich.getDescription());
     }
 }

@@ -74,13 +74,14 @@ public class JsonUtils {
                 }
 
                 // get mIngredients JSON array
-                if (name.has("ingredients")) {
-                    JSONArray ingredientsJsonArray = name.getJSONArray("ingredients");
+                if (baseJsonResponse.has("ingredients")) {
+                    JSONArray ingredientsJsonArray = baseJsonResponse.getJSONArray("ingredients");
 
                     // loop through the array to add to other names list
                     mIngredients = new ArrayList<>();
                     for (int i = 0; i < ingredientsJsonArray.length(); i++) {
                         mIngredients.add(ingredientsJsonArray.getString(i));
+                        Log.i(LOG_TAG, ingredientsJsonArray.getString(i));
                     }
                 }
 
